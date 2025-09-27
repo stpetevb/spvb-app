@@ -1,0 +1,136 @@
+.card {
+  background: var(--color-white);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.matchHeader {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-black);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lockIcon {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.teams {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.teamRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.teamRow:hover {
+  background: #f9f9f9;
+}
+
+.teamInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.teamIconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.teamIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.seedNumber {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.teamName {
+  font-size: 0.95rem;
+  color: var(--color-black);
+}
+
+.winner {
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.score {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.score.winner {
+  font-weight: 700; /* only bold winning score */
+}
+
+.playerScoring {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.scoreInput {
+  width: 50px;
+  padding: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.scoreButton,
+.saveButton,
+.cancelButton {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.scoreButton {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.saveButton {
+  background: #2a9d8f;
+  color: #fff;
+}
+
+.cancelButton {
+  background: #ccc;
+  color: #333;
+}

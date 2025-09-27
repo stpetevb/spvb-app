@@ -1,0 +1,47 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.inputs input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.inputs input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(225, 6, 0, 0, 0.2);
+}
+
+.button {
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background: #b50500;
+}
+
+.message {
+  font-size: 0.85rem;
+  color: var(--color-black);
+  margin-top: 4px;
+}

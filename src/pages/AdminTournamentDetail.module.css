@@ -1,0 +1,64 @@
+/* Container */
+.page {
+  padding: 2rem;
+  font-family: system-ui, sans-serif;
+  background: #fafafa;
+}
+
+/* Header */
+.header {
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #222;
+}
+
+.header p {
+  margin: 0.25rem 0 0;
+  color: #555;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.tabButton {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+
+.tabButton:hover {
+  background: #f0f0f0;
+}
+
+.tabActive {
+  font-weight: bold;
+  border-color: #000;
+  background: #eee;
+}
+
+/* Panels */
+.panel {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.panel h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  color: #111;
+}

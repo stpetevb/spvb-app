@@ -1,0 +1,297 @@
+/* === Bracket Wrapper === */
+.bracketWrapper {
+  padding: 20px 0;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 90vh;
+  text-align: center;
+}
+
+/* Add scaling behavior */
+.bracketContent {
+  transform-origin: top left;
+  transition: transform 0.2s ease-in-out;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+/* Auto scale down if bracket is too wide */
+@media (max-width: 1200px) {
+  .bracketWrapper {
+    padding: 10px 0;
+  }
+  .bracketContent {
+    transform: scale(0.9);
+  }
+}
+
+@media (max-width: 992px) {
+  .bracketWrapper {
+    padding: 5px 0;
+  }
+  .bracketContent {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-width: 768px) {
+  .bracketWrapper {
+    padding: 0;
+  }
+  .bracketContent {
+    transform: scale(0.7);
+  }
+}
+
+/* Controls */
+.controls {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.resetBtn {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* === Round Layout === */
+.rounds {
+  display: flex;
+  justify-content: center;
+  gap: 120px;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  min-width: 300px;
+  flex-shrink: 0;
+}
+
+.round.quarterfinals {
+  gap: 80px;
+}
+
+.round.semifinals {
+  margin-top: 100px;
+  gap: 160px;
+}
+
+.round.final {
+  margin-top: 220px;
+}
+
+@media (min-width: 1025px) {
+  .round.semifinals {
+    margin-top: 100px;
+  }
+
+  .round.final {
+    margin-top: 220px;
+  }
+}
+
+.round.bronze {
+  align-items: flex-start;
+  margin-top: 60px;
+}
+
+/* === Match Card === */
+.match {
+  background: var(--color-white);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 16px;
+  width: 300px;
+  min-height: 110px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.teamRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0;
+}
+
+.teamRow span {
+  font-weight: 500;
+}
+
+.teamRow .winner {
+  font-weight: 700;
+}
+
+input {
+  width: 60px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 0.95rem;
+}
+
+.saveBtn {
+  margin-top: 8px;
+  width: 100%;
+  background: #219ebc;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.locked {
+  display: block;
+  margin-top: 6px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* === CONNECTORS === */
+.match::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  width: 60px;
+  height: 2px;
+  background: #ccc;
+}
+
+.round.final .match::after,
+.round.bronze .match::after {
+  display: none;
+}
+
+/* === Team Icon Styles === */
+.teamInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.teamIconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.teamIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.seedNumber {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.teamName {
+  font-weight: 500;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.scoreBox {
+  min-width: 40px;
+  text-align: center;
+}
+
+.score {
+  font-weight: 600;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1024px) {
+  .rounds {
+    gap: 60px;
+  }
+
+  .round {
+    min-width: 250px;
+  }
+
+  .match {
+    width: 250px;
+    padding: 10px 12px;
+  }
+
+  .match::after {
+    width: 30px;
+    right: -30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bracketWrapper {
+    padding: 0;
+    overflow-y: visible;
+    max-height: unset;
+  }
+
+  .bracketContent {
+    transform: scale(1); /* Reset scaling for mobile vertical stack */
+  }
+
+  .rounds {
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .round {
+    width: 100%;
+    max-width: 320px;
+    min-width: unset;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .round.quarterfinals,
+  .round.semifinals,
+  .round.final {
+    margin-top: 0;
+    gap: 20px;
+  }
+
+  .match {
+    width: 280px;
+    min-height: 100px;
+  }
+
+  .match::after {
+    display: none;
+  }
+
+  .teamName {
+    font-size: 0.9rem;
+  }
+}

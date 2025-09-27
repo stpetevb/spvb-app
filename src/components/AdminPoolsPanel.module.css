@@ -1,0 +1,69 @@
+.panel {
+  margin-top: 1rem;
+}
+
+.teamList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+}
+
+.teamItem {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.generator {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.generator label {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.generateButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.generateButton:hover {
+  background: #444;
+}
+
+.poolsSection {
+  margin-top: 2rem;
+}
+
+.pool {
+  margin-bottom: 1.5rem;
+}
+
+.pool h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.pool ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.pool ul li {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eee;
+}

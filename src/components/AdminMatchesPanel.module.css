@@ -1,0 +1,119 @@
+.panel {
+  margin-top: 1.5rem;
+}
+
+.heading {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.poolCard {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background: #fff;
+}
+
+.poolName {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.matchList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.matchItem {
+  margin-bottom: 0.75rem;
+}
+
+.matchRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scoreInput {
+  width: 50px;
+  padding: 0.25rem;
+  text-align: center;
+}
+
+.actions button {
+  margin-left: 0.5rem;
+}
+
+.editButton,
+.deleteButton,
+.saveButton,
+.cancelButton,
+.addButton {
+  border: none;
+  padding: 0.35rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.editButton {
+  background: #f0f0f0;
+}
+
+.editButton:hover {
+  background: #e0e0e0;
+}
+
+.deleteButton {
+  background: #ffdddd;
+}
+
+.deleteButton:hover {
+  background: #ffbbbb;
+}
+
+.saveButton {
+  background: #d4f8d4;
+}
+
+.saveButton:hover {
+  background: #b8f0b8;
+}
+
+.cancelButton {
+  background: #f5f5f5;
+}
+
+.cancelButton:hover {
+  background: #e0e0e0;
+}
+
+.addMatch {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.addMatch label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.textInput,
+.select {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

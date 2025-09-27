@@ -1,0 +1,186 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--color-bg);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+  color: var(--color-black);
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+.tabButton {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #ccc;
+  background: var(--color-white);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.tabButton:hover {
+  background: #f5f5f5;
+}
+
+.tabActive {
+  font-weight: 600;
+  border-color: var(--color-black);
+  background: #eee;
+}
+
+/* Panel wrapper */
+.panel {
+  background: var(--color-white);
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Pool sections inside Pools tab */
+.poolSection {
+  background: var(--color-white);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.poolTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--color-black);
+}
+
+/* Standings table */
+.standingsTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.standingsTable th,
+.standingsTable td {
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.standingsTable th {
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.standingsTable tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.standingsTable td {
+  border-top: 1px solid #eee;
+}
+
+.rankCell {
+  font-weight: 600;
+  color: var(--color-black);
+  text-align: center;
+}
+
+.teamCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icon + seed wrapper */
+.teamIconWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.teamIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.seedNumber {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+}
+
+/* Matches grid */
+.matchesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .matchesGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Teams table (Home tab) */
+.teamsTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 12px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.teamsTable th,
+.teamsTable td {
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.teamsTable th {
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.teamsTable tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.teamsTable td {
+  border-top: 1px solid #eee;
+}

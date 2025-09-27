@@ -1,0 +1,86 @@
+/* src/components/Layout.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  background: #000;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoImg {
+  height: 40px;
+  width: auto;
+}
+
+.logo a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  font-family: "Montserrat", "Poppins", "Arial", sans-serif;
+  transition: color 0.2s ease-in-out;
+}
+
+.logo a:hover {
+  color: #aaa; /* light grey on hover */
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navLinks a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.navLinks a:hover {
+  color: #aaa;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.footer {
+  background: #f4f4f4;
+  color: #333;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.signOutBtn {
+  background: none;
+  border: none;
+  color: var(--color-accent, #c00);
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 16px;
+}
+
+.signOutBtn:hover {
+  text-decoration: underline;
+}
