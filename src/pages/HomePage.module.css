@@ -59,16 +59,12 @@
 .header h1 {
   font-size: 3.5rem;
   margin-bottom: 0.75rem;
-  font-weight: 800; /* Extra bold for impact */
+  font-weight: 700; /* Bold but not extra bold */
   letter-spacing: 1.5px; /* Wider spacing for professional look */
   text-transform: uppercase;
   
   /* Bold black text */
   color: #000000;
-  
-  /* White border around text */
-  -webkit-text-stroke: 2px white;
-  text-stroke: 2px white;
   
   /* Very subtle shadow */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -81,15 +77,11 @@
 
 .header p {
   font-size: 1.3rem;
-  font-weight: 600; /* Semi-bold for better readability */
+  font-weight: 500; /* Medium weight - thinner */
   letter-spacing: 0.8px;
   
   /* Dark gray for subheading */
   color: #333333;
-  
-  /* White border around text */
-  -webkit-text-stroke: 1.5px white;
-  text-stroke: 1.5px white;
   
   /* Very subtle shadow */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
