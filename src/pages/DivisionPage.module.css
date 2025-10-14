@@ -2,6 +2,7 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 20px;
+  padding-top: 2rem; /* Add top padding since Layout.main no longer has it */
   background: var(--color-bg);
 }
 

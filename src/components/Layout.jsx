@@ -91,12 +91,21 @@ export default function Layout() {
 
       {/* Footer */}
       <footer className={styles.footer}>
-        <p>&copy; {new Date().getFullYear()} St. Pete Volleyball</p>
-        {auth.currentUser && (
-          <button onClick={handleSignOut} className={styles.signOutBtn}>
-            Sign Out
-          </button>
-        )}
+        <div className={styles.footerContent}>
+          <p>&copy; {new Date().getFullYear()} St. Pete Volleyball</p>
+          <div className={styles.legalLinks}>
+            <Link to="/privacy">Privacy Policy</Link>
+            <span>•</span>
+            <Link to="/terms">Terms of Service</Link>
+            <span>•</span>
+            <Link to="/waiver">Waiver</Link>
+          </div>
+          {auth.currentUser && (
+            <button onClick={handleSignOut} className={styles.signOutBtn}>
+              Sign Out
+            </button>
+          )}
+        </div>
       </footer>
     </div>
   );

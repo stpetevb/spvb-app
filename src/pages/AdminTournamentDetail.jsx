@@ -7,7 +7,7 @@ import AdminMatchesPanel from "../components/AdminMatchesPanel";
 import Bracket from "../components/Bracket";
 import AdminFinishPanel from "../components/AdminFinishPanel"; // NEW import
 import { computeOverallStandings, buildTeamMaps } from "../services/standingsService";
-import "./AdminTournamentDetail.module.css";
+import styles from "./AdminTournamentDetail.module.css";
 
 export default function AdminTournamentDetail() {
   const { tournamentId } = useParams();
@@ -110,55 +110,58 @@ export default function AdminTournamentDetail() {
   const playoffStandings = computeOverallStandings(matches, registrations, teamSeedMap, teamColorMap);
 
   return (
-    <div className="page">
-      <div className="header">
-        <h1>{tournament.name}</h1>
-        <p>
+    <div className={styles.page}>
+      <div className={styles.header}>
+        <h1 className={styles.title}>{tournament.name}</h1>
+        <p className={styles.subtitle}>
           {tournament.location} —{" "}
           {new Date(tournament.date.seconds * 1000).toLocaleDateString()}
         </p>
       </div>
 
       {/* Division selector */}
-      <label>
-        Division:{" "}
-        <select
-          value={selectedDivisionId || ""}
-          onChange={(e) => {
-            setSelectedDivisionId(e.target.value);
-            setActivePanel("pools");
-          }}
-        >
-          {divisions.map((div) => (
-            <option key={div.id} value={div.id}>
-              {div.name}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className={styles.divisionSelector}>
+        <label className={styles.divisionLabel}>
+          Division:{" "}
+          <select
+            className={styles.divisionSelect}
+            value={selectedDivisionId || ""}
+            onChange={(e) => {
+              setSelectedDivisionId(e.target.value);
+              setActivePanel("pools");
+            }}
+          >
+            {divisions.map((div) => (
+              <option key={div.id} value={div.id}>
+                {div.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
 
       {/* Tabs */}
-      <div className="tabs">
+      <div className={styles.tabs}>
         <button
-          className={`tabButton ${activePanel === "pools" ? "tabActive" : ""}`}
+          className={`${styles.tabButton} ${activePanel === "pools" ? styles.tabActive : ""}`}
           onClick={() => setActivePanel("pools")}
         >
           Pools
         </button>
         <button
-          className={`tabButton ${activePanel === "matches" ? "tabActive" : ""}`}
+          className={`${styles.tabButton} ${activePanel === "matches" ? styles.tabActive : ""}`}
           onClick={() => setActivePanel("matches")}
         >
           Matches
         </button>
         <button
-          className={`tabButton ${activePanel === "bracket" ? "tabActive" : ""}`}
+          className={`${styles.tabButton} ${activePanel === "bracket" ? styles.tabActive : ""}`}
           onClick={() => setActivePanel("bracket")}
         >
           Bracket
         </button>
         <button
-          className={`tabButton ${activePanel === "finish" ? "tabActive" : ""}`}
+          className={`${styles.tabButton} ${activePanel === "finish" ? styles.tabActive : ""}`}
           onClick={() => setActivePanel("finish")}
         >
           Finish
@@ -166,7 +169,7 @@ export default function AdminTournamentDetail() {
       </div>
 
       {/* Panels */}
-      <div className="panel">
+      <div className={styles.panel}>
         {activePanel === "pools" && (
           <AdminPoolsPanel
             tournamentId={tournamentId}

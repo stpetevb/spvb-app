@@ -218,25 +218,63 @@ export default function AdminPoolsPanel({ tournamentId, divisionId }) {
 
   if (loading) return <p>Loading registrations...</p>;
 
+  // Sort teams by seed for display
+  const sortedTeams = [...registrations].sort((a, b) => {
+    if (a.seed == null && b.seed == null) return 0;
+    if (a.seed == null) return 1;
+    if (b.seed == null) return -1;
+    return a.seed - b.seed;
+  });
+
   return (
     <div className={styles.panel}>
       <h2>Registered Teams</h2>
-      <ul className={styles.teamList}>
-        {registrations.map((team) => (
-          <li key={team.id} className={styles.teamItem}>
-            <strong>{team.players?.join(" / ") || team.teamName}</strong>
-            <br />
-            Seed:{" "}
-            <input
-              type="number"
-              min="1"
-              value={team.seed ?? ""}
-              onChange={(e) => handleSeedChange(team.id, e.target.value)}
-              style={{ width: "60px", marginLeft: "8px" }}
-            />
-          </li>
-        ))}
-      </ul>
+      {registrations.length === 0 ? (
+        <p>No teams registered yet.</p>
+      ) : (
+        <table className={styles.teamTable}>
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Players</th>
+              <th>Seed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedTeams.map((team, idx) => (
+              <tr key={team.id}>
+                <td className={styles.teamCell}>
+                  <div className={styles.teamIconWrapper}>
+                    <div
+                      className={styles.teamIcon}
+                      style={{ backgroundColor: `hsl(${(idx * 45) % 360}, 70%, 50%)` }}
+                    ></div>
+                    <span className={styles.seedNumber}>
+                      {team.seed ?? "—"}
+                    </span>
+                  </div>
+                  <strong>{team.teamName}</strong>
+                </td>
+                <td>
+                  {team.players?.length > 0
+                    ? team.players.join(" / ")
+                    : "—"}
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    value={team.seed ?? ""}
+                    onChange={(e) => handleSeedChange(team.id, e.target.value)}
+                    className={styles.seedInput}
+                    placeholder="—"
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       <div className={styles.generator}>
         <h3>Generate Pools</h3>

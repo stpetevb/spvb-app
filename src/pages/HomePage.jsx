@@ -94,14 +94,17 @@ export default function HomePage() {
 
   return (
     <div className={styles.home}>
-      <div className={styles.header}>
-        {/* NEW logo above heading */}
-        <img src={logo} alt="SPVB Logo" />
-        <h1>St. Pete Volleyball</h1>
-        <p>Welcome to our tournament platform!</p>
+      <div className={styles.bannerSection}>
+        <div className={styles.header}>
+          {/* NEW logo above heading */}
+          <img src={logo} alt="SPVB Logo" className={styles.logo} />
+          <h1>St. Pete Volleyball</h1>
+          <p>Welcome to our tournament platform!</p>
+        </div>
       </div>
 
-      <div className={styles.tabs}>
+      <div className={styles.contentSection}>
+        <div className={styles.tabs}>
         <button
           className={`${styles.tab} ${
             activeTab === "upcoming" ? styles.activeTab : ""
@@ -120,32 +123,33 @@ export default function HomePage() {
         </button>
       </div>
 
-      {activeTab === "upcoming" && (
-        <ul className={styles.tournamentList}>
-          {upcomingTournaments.length === 0 ? (
-            <p>No upcoming tournaments.</p>
-          ) : (
-            upcomingTournaments.map(renderTournamentRow)
-          )}
-        </ul>
-      )}
+        {activeTab === "upcoming" && (
+          <ul className={styles.tournamentList}>
+            {upcomingTournaments.length === 0 ? (
+              <p>No upcoming tournaments.</p>
+            ) : (
+              upcomingTournaments.map(renderTournamentRow)
+            )}
+          </ul>
+        )}
 
-      {activeTab === "completed" && (
-        <ul className={styles.tournamentList}>
-          {completedTournaments.length === 0 ? (
-            <p>No completed tournaments yet.</p>
-          ) : (
-            completedTournaments.map((t) => (
-              <li key={t.id} className={styles.tournamentRow}>
-                <Link to={`/t/${t.id}`}>
-                  <strong>{t.name}</strong> — {t.location} —{" "}
-                  {t.eventDate.toLocaleDateString()}
-                </Link>
-              </li>
-            ))
-          )}
-        </ul>
-      )}
+        {activeTab === "completed" && (
+          <ul className={styles.tournamentList}>
+            {completedTournaments.length === 0 ? (
+              <p>No completed tournaments yet.</p>
+            ) : (
+              completedTournaments.map((t) => (
+                <li key={t.id} className={styles.tournamentRow}>
+                  <Link to={`/t/${t.id}`}>
+                    <strong>{t.name}</strong> — {t.location} —{" "}
+                    {t.eventDate.toLocaleDateString()}
+                  </Link>
+                </li>
+              ))
+            )}
+          </ul>
+        )}
+      </div>
     </div>
   );
 }

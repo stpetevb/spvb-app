@@ -1,5 +1,6 @@
 .page {
   padding: 20px;
+  padding-top: 2rem; /* Add top padding since Layout.main no longer has it */
   max-width: 900px;
   margin: 0 auto;
 }

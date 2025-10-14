@@ -1,30 +1,58 @@
 .home {
-  padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
+  padding: 0;
+  margin: 0 -2rem -2rem -2rem; /* Counteract the Layout.main side and bottom padding only */
+}
+
+/* Banner section with background image */
+.bannerSection {
+  position: relative;
+  width: 100vw; /* Full viewport width */
+  min-height: 400px;
+  background-image: url('/spvb_HomeImage.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .header {
+  position: relative;
   text-align: center;
-  margin-bottom: 2rem;
+  padding: 3rem 2rem;
 }
 
-/* NEW logo styling */
-.header img {
-  width: 120px; /* adjust size as needed */
+/* Logo styling */
+.logo {
+  width: 120px;
   height: auto;
   margin-bottom: 1rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .header h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  color: var(--color-black);
+  color: white;
+  font-weight: 200; /* Extra thin font weight for banner */
+  letter-spacing: 0.5px; /* Slight letter spacing for elegance */
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .header p {
-  color: #555;
+  color: white;
   font-size: 1.1rem;
+  font-weight: 300; /* Thin font weight */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Content section below banner */
+.contentSection {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 .tournamentList {
@@ -109,4 +137,72 @@
   margin-left: 8px;
   padding: 2px 6px;
   border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bannerSection {
+    min-height: 300px;
+  }
+
+  .header {
+    padding: 2rem 1rem;
+  }
+
+  .logo {
+    width: 90px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 200; /* Maintain thin weight on tablet */
+  }
+
+  .header p {
+    font-size: 1rem;
+    font-weight: 300; /* Maintain thin weight on tablet */
+  }
+
+  .contentSection {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bannerSection {
+    min-height: 250px;
+  }
+
+  .header {
+    padding: 1.5rem 1rem;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+    font-weight: 200; /* Maintain thin weight on mobile */
+  }
+
+  .header p {
+    font-size: 0.95rem;
+    font-weight: 300; /* Maintain thin weight on mobile */
+  }
+
+  .contentSection {
+    padding: 1rem;
+  }
+
+  .tournamentRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: space-between;
+  }
 }

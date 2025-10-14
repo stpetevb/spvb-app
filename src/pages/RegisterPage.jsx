@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getTournamentById, addRegistration } from "../services/tournamentService";
 import { useAuth } from "../context/AuthContext";
 import styles from "./RegisterPage.module.css";
@@ -100,7 +100,7 @@ export default function RegisterPage() {
     }
 
     if (!waiverAccepted) {
-      setError("You must accept the waiver.");
+      setError("You must accept the Participant Agreement & Release before submitting.");
       return;
     }
 
@@ -127,7 +127,7 @@ export default function RegisterPage() {
   };
 
   if (loading) return <p>Loading tournament...</p>;
-  if (error) return <p className={styles.error}>{error}</p>;
+  if (error && !tournament) return <p className={styles.error}>{error}</p>;
 
   return (
     <div className={styles.container}>
@@ -186,6 +186,7 @@ export default function RegisterPage() {
           required
         />
 
+        {/* ✅ Updated Waiver Agreement Checkbox */}
         <label className={styles.checkboxRow}>
           <input
             type="checkbox"
@@ -193,7 +194,18 @@ export default function RegisterPage() {
             onChange={(e) => setWaiverAccepted(e.target.checked)}
             required
           />
-          I agree to the waiver
+          <span>
+            All team members have read and agree to the{" "}
+            <Link
+              to="/waiver"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.waiverLink}
+            >
+              Participant Agreement & Release
+            </Link>
+            .
+          </span>
         </label>
 
         {error && <p className={styles.error}>{error}</p>}

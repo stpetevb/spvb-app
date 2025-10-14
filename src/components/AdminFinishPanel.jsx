@@ -77,46 +77,76 @@ export default function AdminFinishPanel({ tournamentId, divisionId }) {
 
   if (loading) return <p>Loading teams...</p>;
 
+  // Sort teams by finish for display
+  const sortedTeams = [...registrations].sort((a, b) => {
+    const finishA = editedFinishes[a.id] !== undefined ? editedFinishes[a.id] : a.finish;
+    const finishB = editedFinishes[b.id] !== undefined ? editedFinishes[b.id] : b.finish;
+    if (finishA == null && finishB == null) return 0;
+    if (finishA == null) return 1;
+    if (finishB == null) return -1;
+    return finishA - finishB;
+  });
+
   return (
     <div className={styles.panel}>
       <h2>Final Placements</h2>
-      <ul className={styles.teamList}>
-        {registrations.map((team) => (
-          <li key={team.id} className={styles.teamItem}>
-            <strong>{team.players?.join(" / ") || team.teamName}</strong>
-            <br />
-            Finish:{" "}
-            <input
-              type="number"
-              min="1"
-              value={
-                editedFinishes[team.id] !== undefined
-                  ? editedFinishes[team.id]
-                  : team.finish ?? ""
-              }
-              onChange={(e) => handleFinishChange(team.id, e.target.value)}
-              style={{ width: "60px", marginLeft: "8px" }}
-            />
-          </li>
-        ))}
-      </ul>
+      {registrations.length === 0 ? (
+        <p>No teams registered yet.</p>
+      ) : (
+        <table className={styles.teamTable}>
+          <thead>
+            <tr>
+              <th>Team</th>
+              <th>Players</th>
+              <th>Finish</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedTeams.map((team, idx) => {
+              const currentFinish = editedFinishes[team.id] !== undefined
+                ? editedFinishes[team.id]
+                : team.finish;
+              return (
+                <tr key={team.id}>
+                  <td className={styles.teamCell}>
+                    <div className={styles.teamIconWrapper}>
+                      <div
+                        className={styles.teamIcon}
+                        style={{ backgroundColor: `hsl(${(idx * 45) % 360}, 70%, 50%)` }}
+                      ></div>
+                      <span className={styles.seedNumber}>
+                        {currentFinish ?? "—"}
+                      </span>
+                    </div>
+                    <strong>{team.teamName}</strong>
+                  </td>
+                  <td>
+                    {team.players?.length > 0
+                      ? team.players.join(" / ")
+                      : "—"}
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      min="1"
+                      value={currentFinish ?? ""}
+                      onChange={(e) => handleFinishChange(team.id, e.target.value)}
+                      className={styles.seedInput}
+                      placeholder="—"
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
       {Object.keys(editedFinishes).length > 0 && (
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          style={{
-            marginTop: "16px",
-            padding: "8px 16px",
-            background: "var(--color-accent, #e10600)",
-            color: "#fff",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-            fontWeight: "600",
-          }}
-        >
-          {saving ? "Saving..." : "Save Changes"}
-        </button>
+        <div className={styles.generator}>
+          <button onClick={handleSave} disabled={saving}>
+            {saving ? "Saving..." : "Save Changes"}
+          </button>
+        </div>
       )}
     </div>
   );

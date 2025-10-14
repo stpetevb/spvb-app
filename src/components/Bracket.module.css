@@ -65,7 +65,7 @@
   display: flex;
   justify-content: center;
   gap: 120px;
-  align-items: flex-start;
+  align-items: flex-start; /* Keep flex-start for proper alignment */
   flex-wrap: nowrap;
 }
 
@@ -83,22 +83,30 @@
 }
 
 .round.semifinals {
-  margin-top: 100px;
-  gap: 160px;
+  gap: 40px; /* Gap between h3 and first match */
+}
+
+/* Push first semifinal down to center between QF slots 1 & 2 */
+.round.semifinals .matchWrapper:first-of-type {
+  margin-top: 143px; /* Additional margin to center SF1 between QF1 and QF2 - moved up 7px */
+  margin-bottom: 238px; /* Space between SF1 and SF2 - moved SF2 down 6px */
 }
 
 .round.final {
-  margin-top: 220px;
+  /* Keep the title aligned with other round titles */
+  gap: 40px; /* Keep default gap */
 }
 
-@media (min-width: 1025px) {
-  .round.semifinals {
-    margin-top: 100px;
-  }
-
-  .round.final {
-    margin-top: 220px;
-  }
+/* Wrapper for the finals match card to add centering margin */
+.finalMatchWrapper {
+  /* Center the finals match between the semifinals */
+  /* SF1 center: h3 + 40px + 150px + 55px = h3 + 245px */
+  /* SF2 center: h3 + 40px + 150px + 110px + 232px + 55px = h3 + 587px */
+  /* Finals center should be at: (245 + 587) / 2 = h3 + 416px */
+  /* Finals match is 110px tall, so center is at 55px from top */
+  /* Finals match top should be at: h3 + 416px - 55px = h3 + 361px */
+  /* Finals already has 40px gap from h3, so: 361px - 40px = 321px additional */
+  margin-top: 342px; /* Adjusted to maintain centering with new SF2 position */
 }
 
 .round.bronze {
@@ -165,19 +173,94 @@ input {
 }
 
 /* === CONNECTORS === */
-.match::after {
-  content: "";
+/* Match wrapper to contain match card and connector */
+.matchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Horizontal line extending from match card to the right */
+.connector {
   position: absolute;
   right: -60px;
   top: 50%;
   width: 60px;
   height: 2px;
   background: #ccc;
+  transform: translateY(-50%);
 }
 
-.round.final .match::after,
-.round.bronze .match::after {
+/* Vertical connecting lines between pairs of matches */
+/* Use ::before for vertical lines (::after is used by horizontal connector) */
+
+/* Quarterfinals: Connect pairs of matches that feed into the same semifinal */
+/* Pattern: matches at positions 2,3 connect (pair 1), 4,5 connect (pair 2), etc. */
+
+/* First match of each pair: vertical line going DOWN */
+.round.quarterfinals .matchWrapper:nth-child(2)::before,
+.round.quarterfinals .matchWrapper:nth-child(4)::before,
+.round.quarterfinals .matchWrapper:nth-child(6)::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  width: 2px;
+  height: calc(80px + 55px); /* gap + half match height */
+  background: #ccc;
+  z-index: 0;
+}
+
+/* Second match of each pair: vertical line going UP */
+.round.quarterfinals .matchWrapper:nth-child(3)::before,
+.round.quarterfinals .matchWrapper:nth-child(5)::before,
+.round.quarterfinals .matchWrapper:nth-child(7)::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  bottom: 50%;
+  width: 2px;
+  height: calc(80px + 55px);
+  background: #ccc;
+  z-index: 0;
+}
+
+/* Special case: 7-team bracket has 3 QF matches (slots 1,2,3) */
+/* Match 2 (#4v#5) stands alone and goes to SF1, matches 3&4 (#2v#7, #3v#6) pair to SF2 */
+/* So we need to hide the vertical line for match 2 in 3-match scenarios */
+.round.quarterfinals .matchWrapper:nth-child(2):nth-last-child(2)::before {
   display: none;
+}
+
+/* For 6-team bracket (2 QF matches), both should have vertical lines connecting */
+/* This is already handled by the nth-child(2) and nth-child(3) rules above */
+
+/* For 5-team bracket (1 QF match), no vertical line */
+.round.quarterfinals .matchWrapper:only-child::before {
+  display: none;
+}
+
+/* For semifinals: connect both matches to finals */
+.round.semifinals .matchWrapper:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  top: 50%;
+  width: 2px;
+  height: calc(238px / 2 + 110px / 2 + 34px); /* half gap + half match height + 34px to close gap */
+  background: #ccc;
+  z-index: 0;
+}
+
+.round.semifinals .matchWrapper:nth-child(3)::before {
+  content: "";
+  position: absolute;
+  right: -60px;
+  bottom: 50%;
+  width: 2px;
+  height: calc(238px / 2 + 110px / 2 + 34px); /* half gap + half match height + 34px to close gap */
+  background: #ccc;
+  z-index: 0;
 }
 
 /* === Team Icon Styles === */
@@ -213,6 +296,7 @@ input {
   font-weight: 500;
   flex: 1;
   min-width: 0;
+  max-width: 180px; /* Limit to ~"Angela / Dazza / Ivan" length */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -242,9 +326,27 @@ input {
     padding: 10px 12px;
   }
 
-  .match::after {
+  .connector {
     width: 30px;
     right: -30px;
+  }
+
+  /* Adjust vertical connectors for smaller screens */
+  .round.quarterfinals .matchWrapper:nth-child(2)::before,
+  .round.quarterfinals .matchWrapper:nth-child(4)::before,
+  .round.quarterfinals .matchWrapper:nth-child(6)::before {
+    height: calc(80px + 50px);
+  }
+
+  .round.quarterfinals .matchWrapper:nth-child(3)::before,
+  .round.quarterfinals .matchWrapper:nth-child(5)::before,
+  .round.quarterfinals .matchWrapper:nth-child(7)::before {
+    height: calc(80px + 50px);
+  }
+
+  .round.semifinals .matchWrapper:nth-child(2)::before,
+  .round.semifinals .matchWrapper:nth-child(3)::before {
+    height: calc(238px / 2 + 110px / 2 + 34px);
   }
 }
 
@@ -278,8 +380,17 @@ input {
   .round.quarterfinals,
   .round.semifinals,
   .round.final {
-    margin-top: 0;
     gap: 20px;
+  }
+
+  /* Reset custom margins on mobile */
+  .round.semifinals .matchWrapper:first-of-type {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .finalMatchWrapper {
+    margin-top: 0;
   }
 
   .match {
@@ -287,7 +398,10 @@ input {
     min-height: 100px;
   }
 
-  .match::after {
+  /* Hide all connectors on mobile */
+  .connector,
+  .round.quarterfinals .matchWrapper::before,
+  .round.semifinals .matchWrapper::before {
     display: none;
   }
 

@@ -1,6 +1,6 @@
 .container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 2rem auto 0 auto; /* Add top margin since Layout.main no longer has top padding */
   padding: 2rem;
   background: var(--color-white);
   border: 1px solid #ddd;
@@ -61,6 +61,19 @@
   align-items: center;
   gap: 0.6rem;
   font-size: 0.9rem;
+}
+
+/* ✅ New style for waiver link */
+.waiverLink {
+  color: var(--color-accent, #b22222);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.waiverLink:hover {
+  text-decoration: underline;
+  color: #8b1a1a;
 }
 
 .button {
