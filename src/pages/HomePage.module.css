@@ -6,16 +6,18 @@
 /* Banner section with background image */
 .bannerSection {
   position: relative;
-  width: 100vw; /* Full viewport width */
+  width: 100%;
   min-height: 400px;
   background-image: url('/spvb_HomeImage.png');
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .header {

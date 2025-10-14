@@ -17,7 +17,7 @@ html {
   width: 100%;
   height: 100%;
   overflow-x: auto; /* Allow horizontal scrolling on mobile */
-  min-width: 1200px; /* Ensure desktop layout width */
+  min-width: 1400px; /* Ensure desktop layout width */
 }
 
 body {
@@ -31,7 +31,7 @@ body {
   color: var(--color-text);
   line-height: 1.5;
   overflow-x: auto; /* Allow horizontal scrolling on mobile */
-  min-width: 1200px; /* Ensure desktop layout width */
+  min-width: 1400px; /* Ensure desktop layout width */
 }
 
 /* Headings */
