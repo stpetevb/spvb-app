@@ -53,18 +53,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    
-    <!-- Center viewport on mobile load -->
-    <script>
-      // Only run on mobile devices
-      if (window.innerWidth < 768) {
-        window.addEventListener('load', function() {
-          // Calculate center position
-          const centerX = (document.documentElement.scrollWidth - window.innerWidth) / 2;
-          // Scroll to center horizontally, keep vertical at top
-          window.scrollTo(centerX, 0);
-        });
-      }
-    </script>
   </body>
 </html>
