@@ -16,22 +16,29 @@
 html {
   width: 100%;
   height: 100%;
-  overflow-x: auto; /* Allow horizontal scrolling on mobile */
-  min-width: 1400px; /* Ensure desktop layout width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  max-width: 1400px; /* Cap at viewport width */
 }
 
 body {
   margin: 0;
   padding: 0;
   width: 100%;
+  max-width: 1400px; /* Cap at viewport width */
   height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.5;
-  overflow-x: auto; /* Allow horizontal scrolling on mobile */
-  min-width: 1400px; /* Ensure desktop layout width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+/* Ensure root container doesn't overflow */
+#root {
+  width: 100%;
+  max-width: 1400px;
+  overflow-x: hidden;
 }
 
 /* Headings */
