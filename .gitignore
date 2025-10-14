@@ -32,3 +32,4 @@ firebase-adminsdk*.json
 *.njsproj
 *.sln
 *.sw?
+spvb-service-account.json
