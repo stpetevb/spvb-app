@@ -98,7 +98,7 @@ export default function HomePage() {
         <div className={styles.header}>
           {/* NEW logo above heading */}
           <img src={logo} alt="SPVB Logo" className={styles.logo} />
-          <h1>St. Pete Volleyball</h1>
+          <h1>St. Pete <span className={styles.redText}>Volleyball</span></h1>
           <p>Welcome to our tournament platform!</p>
         </div>
       </div>

@@ -22,34 +22,77 @@
   box-sizing: border-box;
 }
 
+/* White overlay on the image */
+.bannerSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.88); /* Slightly less white tint */
+  pointer-events: none;
+  z-index: 1;
+}
+
 .header {
   position: relative;
   text-align: center;
   padding: 3rem 2rem;
+  z-index: 2; /* Appear above the white tint */
 }
 
 /* Logo styling */
 .logo {
-  width: 120px;
+  width: 150px;
   height: auto;
-  margin-bottom: 1rem;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7)) 
+          drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: white;
-  font-weight: 200; /* Extra thin font weight for banner */
-  letter-spacing: 0.5px; /* Slight letter spacing for elegance */
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
+  font-size: 3.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 800; /* Extra bold for impact */
+  letter-spacing: 1.5px; /* Wider spacing for professional look */
+  text-transform: uppercase;
+  
+  /* Bold black text */
+  color: #000000;
+  
+  /* White border around text */
+  -webkit-text-stroke: 2px white;
+  text-stroke: 2px white;
+  
+  /* Very subtle shadow */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Red color for "Volleyball" only */
+.redText {
+  color: #dc2626;
 }
 
 .header p {
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 300; /* Thin font weight */
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 0, 0, 0.4);
+  font-size: 1.3rem;
+  font-weight: 600; /* Semi-bold for better readability */
+  letter-spacing: 0.8px;
+  
+  /* Dark gray for subheading */
+  color: #333333;
+  
+  /* White border around text */
+  -webkit-text-stroke: 1.5px white;
+  text-stroke: 1.5px white;
+  
+  /* Very subtle shadow */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Content section below banner */
