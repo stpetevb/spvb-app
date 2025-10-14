@@ -47,6 +47,18 @@ export default function Bracket({
 
   // Reset bracket
   const handleReset = async () => {
+    const confirmMessage = 
+      "⚠️ WARNING: This will permanently delete ALL playoff matches and scores!\n\n" +
+      "This action CANNOT be undone.\n\n" +
+      "Type 'DELETE' to confirm:";
+    
+    const userInput = prompt(confirmMessage);
+    
+    if (userInput !== "DELETE") {
+      alert("Reset cancelled. No changes were made.");
+      return;
+    }
+
     try {
       const snap = await getDocs(
         collection(db, "tournaments", tournamentId, "divisions", divisionId, "playoffs")
@@ -57,8 +69,10 @@ export default function Bracket({
         );
       }
       setMatches([]);
+      alert("✅ Bracket reset successfully.");
     } catch (err) {
       console.error("❌ Error resetting bracket:", err);
+      alert("Error resetting bracket. Check console for details.");
     }
   };
 
@@ -143,19 +157,23 @@ export default function Bracket({
       
       // Explicit mapping based on team count and bracket structure
       if (numTeams === 5) {
-        // 5 teams: QF slot 1 (#4v#5) → SF slot 2 teamB (to play #1 who is in teamA)
-        if (match.slot === 1) { targetSlot = 2; forceTeamB = true; }
+        // 5 teams: QF slot 1 (#4v#5) → SF slot 1 teamB (to play #1 who is in teamA)
+        if (match.slot === 1) { targetSlot = 1; forceTeamB = true; }
       } else if (numTeams === 6) {
-        // 6 teams: QF slot 1 (#3v#6) → SF slot 1 teamB (to play #2), QF slot 2 (#4v#5) → SF slot 2 teamB (to play #1)
+        // 6 teams: QF slot 1 (#4v#5) → SF slot 1 teamB (to play #1), QF slot 2 (#3v#6) → SF slot 2 teamB (to play #2)
         if (match.slot === 1) { targetSlot = 1; forceTeamB = true; }
         else if (match.slot === 2) { targetSlot = 2; forceTeamB = true; }
       } else if (numTeams === 7) {
-        // 7 teams: QF slot 1 (#4v#5) → SF slot 1 teamB (to play #1), QF slot 2 (#2v#7) → SF slot 2 teamA, QF slot 3 (#3v#6) → SF slot 2 teamB
+        // 7 teams: QF slot 1 (#4v#5) → SF slot 1 teamB (to play #1), QF slot 2 (#2v#3) → SF slot 2 teamA, QF slot 3 (#6v#7) → SF slot 2 teamB
         if (match.slot === 1) { targetSlot = 1; forceTeamB = true; }
         else if (match.slot === 2) { targetSlot = 2; forceTeamA = true; }
         else if (match.slot === 3) { targetSlot = 2; forceTeamB = true; }
       } else if (numTeams === 8) {
-        // 8 teams: QF slot 1 (#1v#8) → SF slot 1 teamA, QF slot 2 (#4v#5) → SF slot 1 teamB, QF slot 3 (#2v#7) → SF slot 2 teamA, QF slot 4 (#3v#6) → SF slot 2 teamB
+        // 8 teams: Top half (QF slots 1 & 2) → SF slot 1, Bottom half (QF slots 3 & 4) → SF slot 2
+        // QF slot 1 (#1v#8) → SF slot 1 teamA
+        // QF slot 2 (#4v#5) → SF slot 1 teamB
+        // QF slot 3 (#2v#7) → SF slot 2 teamA
+        // QF slot 4 (#3v#6) → SF slot 2 teamB
         if (match.slot === 1) { targetSlot = 1; forceTeamA = true; }
         else if (match.slot === 2) { targetSlot = 1; forceTeamB = true; }
         else if (match.slot === 3) { targetSlot = 2; forceTeamA = true; }
@@ -252,37 +270,42 @@ export default function Bracket({
         created.push(await createMatch(2, 2, seeds[1], seeds[2]));
         created.push(await createMatch(3, 1, null, null));
       } else if (numTeams === 5) {
-        // Quarterfinal: #4 vs #5
-        // Semifinals: #2 vs #3, #1 vs winner of #4/#5
-        created.push(await createMatch(1, 1, seeds[3], seeds[4])); // QF: #4 vs #5
-        created.push(await createMatch(2, 1, seeds[1], seeds[2])); // SF: #2 vs #3
-        created.push(await createMatch(2, 2, seeds[0], null)); // SF: #1 awaits QF winner
+        // 5-team bracket structure:
+        // Top half: #1 vs #4/#5 winner → SF slot 1
+        // Bottom half: #2 vs #3 → SF slot 2
+        created.push(await createMatch(1, 1, seeds[3], seeds[4])); // QF slot 1: #4 vs #5
+        created.push(await createMatch(2, 1, seeds[0], null)); // SF slot 1: #1 awaits QF winner
+        created.push(await createMatch(2, 2, seeds[1], seeds[2])); // SF slot 2: #2 vs #3
         created.push(await createMatch(3, 1, null, null)); // Finals
       } else if (numTeams === 6) {
-        // Quarterfinals: #3 vs #6, #4 vs #5
-        // Semifinals: #2 vs winner of #3/#6, #1 vs winner of #4/#5
-        created.push(await createMatch(1, 1, seeds[2], seeds[5])); // QF: #3 vs #6
-        created.push(await createMatch(1, 2, seeds[3], seeds[4])); // QF: #4 vs #5
-        created.push(await createMatch(2, 1, seeds[1], null)); // SF: #2 awaits #3/#6 winner
-        created.push(await createMatch(2, 2, seeds[0], null)); // SF: #1 awaits #4/#5 winner
+        // 6-team bracket structure:
+        // Top half: #1 vs #4/#5 winner → SF slot 1
+        // Bottom half: #2 vs #3/#6 winner → SF slot 2
+        created.push(await createMatch(1, 1, seeds[3], seeds[4])); // QF slot 1: #4 vs #5
+        created.push(await createMatch(1, 2, seeds[2], seeds[5])); // QF slot 2: #3 vs #6
+        created.push(await createMatch(2, 1, seeds[0], null)); // SF slot 1: #1 awaits #4/#5 winner
+        created.push(await createMatch(2, 2, seeds[1], null)); // SF slot 2: #2 awaits #3/#6 winner
         created.push(await createMatch(3, 1, null, null)); // Finals
       } else if (numTeams === 7) {
-        // Quarterfinals: #4 vs #5, #2 vs #7, #3 vs #6
-        // Semifinals: #1 vs winner of #4/#5, winner of #2/#7 vs winner of #3/#6
-        created.push(await createMatch(1, 1, seeds[3], seeds[4])); // QF: #4 vs #5
-        created.push(await createMatch(1, 2, seeds[1], seeds[6])); // QF: #2 vs #7
-        created.push(await createMatch(1, 3, seeds[2], seeds[5])); // QF: #3 vs #6
-        created.push(await createMatch(2, 1, seeds[0], null)); // SF: #1 awaits #4/#5 winner
-        created.push(await createMatch(2, 2, null, null)); // SF: #2/#7 winner vs #3/#6 winner
+        // 7-team bracket structure:
+        // Top half: #1 vs #4/#5 winner → SF slot 1
+        // Bottom half: #2 vs #3, #6 vs #7 → winners meet in SF slot 2
+        created.push(await createMatch(1, 1, seeds[3], seeds[4])); // QF slot 1: #4 vs #5
+        created.push(await createMatch(1, 2, seeds[1], seeds[2])); // QF slot 2: #2 vs #3
+        created.push(await createMatch(1, 3, seeds[5], seeds[6])); // QF slot 3: #6 vs #7
+        created.push(await createMatch(2, 1, seeds[0], null)); // SF slot 1: #1 awaits #4/#5 winner
+        created.push(await createMatch(2, 2, null, null)); // SF slot 2: #2/#3 winner vs #6/#7 winner
         created.push(await createMatch(3, 1, null, null)); // Finals
       } else if (numTeams === 8) {
-        // Quarterfinals: #1 vs #8, #4 vs #5, #2 vs #7, #3 vs #6
-        created.push(await createMatch(1, 1, seeds[0], seeds[7])); // QF: #1 vs #8
-        created.push(await createMatch(1, 2, seeds[3], seeds[4])); // QF: #4 vs #5
-        created.push(await createMatch(1, 3, seeds[1], seeds[6])); // QF: #2 vs #7
-        created.push(await createMatch(1, 4, seeds[2], seeds[5])); // QF: #3 vs #6
-        created.push(await createMatch(2, 1, null, null)); // SF: #1/#8 winner vs #4/#5 winner
-        created.push(await createMatch(2, 2, null, null)); // SF: #2/#7 winner vs #3/#6 winner
+        // Standard 8-team bracket structure:
+        // Top half: #1 vs #8 (slot 1), #4 vs #5 (slot 2) → SF slot 1
+        // Bottom half: #2 vs #7 (slot 3), #3 vs #6 (slot 4) → SF slot 2
+        created.push(await createMatch(1, 1, seeds[0], seeds[7])); // QF slot 1: #1 vs #8
+        created.push(await createMatch(1, 2, seeds[3], seeds[4])); // QF slot 2: #4 vs #5
+        created.push(await createMatch(1, 3, seeds[1], seeds[6])); // QF slot 3: #2 vs #7
+        created.push(await createMatch(1, 4, seeds[2], seeds[5])); // QF slot 4: #3 vs #6
+        created.push(await createMatch(2, 1, null, null)); // SF slot 1: QF1 winner vs QF2 winner
+        created.push(await createMatch(2, 2, null, null)); // SF slot 2: QF3 winner vs QF4 winner
         created.push(await createMatch(3, 1, null, null)); // Finals
       } else if (numTeams === 9) {
         // Play-in: #8 vs #9

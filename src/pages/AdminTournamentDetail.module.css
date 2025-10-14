@@ -85,9 +85,8 @@
 }
 
 .tabButton:hover {
-  background: #ffe5e5;
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  background: #e5e5e5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .tabActive {

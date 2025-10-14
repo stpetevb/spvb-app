@@ -162,6 +162,11 @@ input {
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.saveBtn:hover {
+  background: #197793;
 }
 
 .locked {

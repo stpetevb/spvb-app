@@ -14,7 +14,6 @@ export default function BracketMatchCard({
   const [editA, setEditA] = useState(match.scoreA ?? match.playerScoreA ?? "");
   const [editB, setEditB] = useState(match.scoreB ?? match.playerScoreB ?? "");
 
-  // --- Final scores (prefer admin, fallback to player) ---
   const finalScoreA =
     match.adminLocked && match.scoreA != null ? match.scoreA : match.playerScoreA;
   const finalScoreB =
@@ -23,19 +22,20 @@ export default function BracketMatchCard({
   const teamAKey = match.teamA;
   const teamBKey = match.teamB;
 
-  // --- Force proper name resolution ---
-  const teamADisplay = teamNameMap?.[teamAKey] || "TBD";
-  const teamBDisplay = teamNameMap?.[teamBKey] || "TBD";
+  const teamADisplay = teamNameMap?.[teamAKey] || teamAKey || "TBD";
+  const teamBDisplay = teamNameMap?.[teamBKey] || teamBKey || "TBD";
 
-  // --- Color resolution: prefer ID match, then name fallback ---
+  // --- New: safe color resolution ---
   const resolveColor = (teamKey, displayName) => {
     if (!teamKey && !displayName) return "#999";
+    // direct key lookup
     if (teamColorMap?.[teamKey]) return teamColorMap[teamKey];
+    // try by matching display name in teamNameMap
     const found = Object.entries(teamNameMap || {}).find(
       ([id, name]) => name === displayName
     );
     if (found && teamColorMap?.[found[0]]) return teamColorMap[found[0]];
-    return "#999";
+    return "#999"; // fallback grey
   };
 
   const teamAColor = resolveColor(teamAKey, teamADisplay);
@@ -49,41 +49,8 @@ export default function BracketMatchCard({
   const winnerB =
     finalScoreA != null && finalScoreB != null && finalScoreB > finalScoreA;
 
-  // --- Save handler ---
   const handleSave = () => {
     onSaveScore(match.id, parseInt(editA) || 0, parseInt(editB) || 0);
-  };
-
-  // --- Render input or static score ---
-  const renderScoreBox = (team, editValue, setEdit, finalScore, isWinner) => {
-    if (isAdmin) {
-      // ✅ Admins can always edit
-      return (
-        <input
-          type="number"
-          value={editValue}
-          onChange={(e) => setEdit(e.target.value)}
-          className={styles.scoreInput}
-        />
-      );
-    } else if (!match.adminLocked && isTournamentToday) {
-      // ✅ Players: editable if today & unlocked
-      return (
-        <input
-          type="number"
-          value={editValue}
-          onChange={(e) => setEdit(e.target.value)}
-          className={styles.scoreInput}
-        />
-      );
-    } else {
-      // ✅ Show final score only
-      return (
-        <span className={`${styles.score} ${isWinner ? styles.winner : ""}`}>
-          {finalScore ?? "-"}
-        </span>
-      );
-    }
   };
 
   return (
@@ -105,7 +72,17 @@ export default function BracketMatchCard({
           </span>
         </div>
         <div className={styles.scoreBox}>
-          {renderScoreBox("A", editA, setEditA, finalScoreA, winnerA)}
+          {isAdmin ? (
+            <input
+              type="number"
+              value={editA}
+              onChange={(e) => setEditA(e.target.value)}
+            />
+          ) : (
+            <span className={`${styles.score} ${winnerA ? styles.winner : ""}`}>
+              {finalScoreA ?? "-"}
+            </span>
+          )}
         </div>
       </div>
 
@@ -126,20 +103,27 @@ export default function BracketMatchCard({
           </span>
         </div>
         <div className={styles.scoreBox}>
-          {renderScoreBox("B", editB, setEditB, finalScoreB, winnerB)}
+          {isAdmin ? (
+            <input
+              type="number"
+              value={editB}
+              onChange={(e) => setEditB(e.target.value)}
+            />
+          ) : (
+            <span className={`${styles.score} ${winnerB ? styles.winner : ""}`}>
+              {finalScoreB ?? "-"}
+            </span>
+          )}
         </div>
       </div>
 
-      {/* Save button (admin always, players only if editable) */}
-      {(isAdmin || (!isAdmin && !match.adminLocked && isTournamentToday)) && (
+      {isAdmin && (
         <button onClick={handleSave} className={styles.saveBtn}>
           Save
         </button>
       )}
-
-      {/* Player view lock notice */}
-      {!isAdmin && match.adminLocked && (
-        <span className={styles.locked}>🔒 Locked for players</span>
+      {match.adminLocked && (
+        <span className={styles.locked}>Score is locked for players.</span>
       )}
     </div>
   );
