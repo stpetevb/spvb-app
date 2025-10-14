@@ -140,10 +140,12 @@ export default function HomePage() {
             ) : (
               completedTournaments.map((t) => (
                 <li key={t.id} className={styles.tournamentRow}>
-                  <Link to={`/t/${t.id}`}>
-                    <strong>{t.name}</strong> — {t.location} —{" "}
-                    {t.eventDate.toLocaleDateString()}
-                  </Link>
+                  <div className={styles.tournamentInfo}>
+                    <Link to={`/t/${t.id}`}>
+                      <strong>{t.name}</strong> — {t.location} —{" "}
+                      {t.eventDate.toLocaleDateString()}
+                    </Link>
+                  </div>
                 </li>
               ))
             )}
