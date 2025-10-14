@@ -27,9 +27,10 @@ export default function Layout() {
         const tokenResult = await user.getIdTokenResult(true);
         setIsAdmin(!!tokenResult.claims.admin);
 
-        // Access guard: if user is not admin but visiting /admin, kick them to login
+        // Access guard: if user is not admin but visiting /admin (but NOT /admin/login), kick them to login
         if (
           location.pathname.startsWith("/admin") &&
+          location.pathname !== "/admin/login" &&
           !tokenResult.claims.admin
         ) {
           navigate("/admin/login");
@@ -37,8 +38,11 @@ export default function Layout() {
       } else {
         setIsAdmin(false);
 
-        // If logged out but on /admin, redirect to login
-        if (location.pathname.startsWith("/admin")) {
+        // If logged out but on /admin (but NOT /admin/login), redirect to login
+        if (
+          location.pathname.startsWith("/admin") &&
+          location.pathname !== "/admin/login"
+        ) {
           navigate("/admin/login");
         }
       }
