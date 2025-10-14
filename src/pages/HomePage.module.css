@@ -133,7 +133,9 @@
 }
 
 .registerBtn:hover {
-  background: #197793;
+  background: #1a8ca8;
+  color: white;
+  text-decoration: none;
 }
 
 .closed {

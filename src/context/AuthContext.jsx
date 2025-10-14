@@ -7,18 +7,25 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser);
+      if (firebaseUser) {
+        const tokenResult = await firebaseUser.getIdTokenResult(true);
+        setIsAdmin(!!tokenResult.claims.admin);
+      } else {
+        setIsAdmin(false);
+      }
       setLoading(false);
     });
     return () => unsub();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ user, isAdmin }}>
       {!loading && children}
     </AuthContext.Provider>
   );
