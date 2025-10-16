@@ -10,6 +10,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../services/firebase";
+import { TEAM_COLORS } from "../services/standingsService";
 import styles from "./AdminPoolsPanel.module.css";
 
 export default function AdminPoolsPanel({ tournamentId, divisionId }) {
@@ -247,7 +248,7 @@ export default function AdminPoolsPanel({ tournamentId, divisionId }) {
                   <div className={styles.teamIconWrapper}>
                     <div
                       className={styles.teamIcon}
-                      style={{ backgroundColor: `hsl(${(idx * 45) % 360}, 70%, 50%)` }}
+                      style={{ backgroundColor: TEAM_COLORS[idx % TEAM_COLORS.length] }}
                     ></div>
                     <span className={styles.seedNumber}>
                       {team.seed ?? "—"}

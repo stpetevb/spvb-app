@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
+import { TEAM_COLORS } from "../services/standingsService";
 import styles from "./TournamentPage.module.css";
 
 export default function TournamentPage() {
@@ -66,7 +67,7 @@ export default function TournamentPage() {
               captainPhone: data.captainPhone || "",
               waiverAccepted: !!data.waiverAccepted,
               seed: data.seed ?? idx + 1, // fallback seed
-              color: `hsl(${(idx * 45) % 360}, 70%, 50%)`,
+              color: TEAM_COLORS[idx % TEAM_COLORS.length],
               ...data,
             };
           });

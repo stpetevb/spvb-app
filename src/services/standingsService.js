@@ -81,6 +81,17 @@ export function computeOverallStandings(matches, registrations, teamSeedMap, tea
 }
 
 /**
+ * Consistent team color palette used across the app
+ */
+export const TEAM_COLORS = [
+  "#e6194b", "#3cb44b", "#ffd700", "#4363d8",
+  "#ff8c00", "#911eb4", "#46f0f0", "#f032e6",
+  "#8b4513", "#2c2c2c", "#d3d3d3", "#ffffff",
+  "#9a6324", "#fffac8", "#800000", "#aaffc3",
+  "#808000", "#ffd8b1", "#000075", "#808080"
+];
+
+/**
  * Build consistent team maps for brackets and standings
  * @param {Array} registrations - registration docs
  * @param {Array} standings - optional sorted standings array for current ranks
@@ -91,14 +102,6 @@ export function buildTeamMaps(registrations, standings = null) {
   const teamColorMap = {};
   const teamSeedMap = {};
 
-  const colors = [
-    "#e6194b", "#3cb44b", "#ffd700", "#4363d8",
-    "#ff8c00", "#911eb4", "#46f0f0", "#f032e6",
-    "#8b4513", "#fabebe", "#008080", "#e6beff",
-    "#9a6324", "#fffac8", "#800000", "#aaffc3",
-    "#808000", "#ffd8b1", "#000075", "#808080"
-  ];
-
   registrations.forEach((reg, idx) => {
     teamNameMap[reg.id] = reg.players.length > 0 ? reg.players.join(" / ") : reg.teamName;
     if (standings) {
@@ -107,7 +110,7 @@ export function buildTeamMaps(registrations, standings = null) {
     } else {
       teamSeedMap[reg.id] = reg.seed ?? idx + 1;
     }
-    teamColorMap[reg.id] = colors[idx % colors.length];
+    teamColorMap[reg.id] = TEAM_COLORS[idx % TEAM_COLORS.length];
   });
 
   return { teamNameMap, teamColorMap, teamSeedMap };

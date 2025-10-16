@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
+import { TEAM_COLORS } from "../services/standingsService";
 import styles from "./AdminPoolsPanel.module.css"; // reuse styling
 
 export default function AdminFinishPanel({ tournamentId, divisionId }) {
@@ -112,7 +113,7 @@ export default function AdminFinishPanel({ tournamentId, divisionId }) {
                     <div className={styles.teamIconWrapper}>
                       <div
                         className={styles.teamIcon}
-                        style={{ backgroundColor: `hsl(${(idx * 45) % 360}, 70%, 50%)` }}
+                        style={{ backgroundColor: TEAM_COLORS[idx % TEAM_COLORS.length] }}
                       ></div>
                       <span className={styles.seedNumber}>
                         {currentFinish ?? "—"}
