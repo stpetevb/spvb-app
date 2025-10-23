@@ -16,7 +16,7 @@
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, var(--color-accent), #b50500);
+  background: var(--color-accent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -145,17 +145,17 @@
 }
 
 .scoreButton {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #b50500 100%);
+  background: var(--color-accent);
   color: #fff;
 }
 
 .scoreButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(225, 6, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(40, 154, 205, 0.3);
 }
 
 .saveButton {
-  background: linear-gradient(135deg, #2a9d8f 0%, #238276 100%);
+  background: #2a9d8f;
   color: #fff;
 }
 

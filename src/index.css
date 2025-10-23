@@ -1,6 +1,6 @@
 :root {
   --color-black: #1A1A1A;
-  --color-red: #E10600;
+  --color-red: #289ACD;
   --color-white: #FFFFFF;
   --color-light: #F4F4F4;
 
@@ -76,7 +76,7 @@ a {
 
 a:hover {
   text-decoration: underline;
-  color: #b50500; /* darker red on hover */
+  color: #1f7ba6; /* darker blue on hover */
 }
 
 /* Utility classes */

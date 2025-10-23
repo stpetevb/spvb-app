@@ -28,7 +28,7 @@
 }
 
 .teamTable th {
-  background: var(--color-accent, #e10600);
+  background: var(--color-accent, #289ACD);
   color: var(--color-white);
   font-weight: 600;
   text-transform: uppercase;
@@ -86,7 +86,7 @@
 .seedInput:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+  box-shadow: 0 0 0 3px rgba(40, 154, 205, 0.1);
 }
 
 /* Generator Section */
@@ -128,7 +128,7 @@
 .generator input[type="number"]:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+  box-shadow: 0 0 0 3px rgba(40, 154, 205, 0.1);
 }
 
 .generator button {
@@ -147,7 +147,7 @@
 }
 
 .generator button:hover {
-  background: #b90500;
+  background: #1f7ba6;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
   transform: translateY(-2px);
 }

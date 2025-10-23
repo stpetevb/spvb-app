@@ -36,7 +36,7 @@
 .select:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(225, 6, 0, 0.15);
+  box-shadow: 0 0 0 2px rgba(40, 154, 205, 0.15);
 }
 
 /* Special inline row for Division dropdown */
@@ -65,7 +65,7 @@
 
 /* ✅ New style for waiver link */
 .waiverLink {
-  color: var(--color-accent, #b22222);
+  color: var(--color-accent, #289ACD);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s ease, text-decoration 0.2s ease;
@@ -73,7 +73,7 @@
 
 .waiverLink:hover {
   text-decoration: underline;
-  color: #8b1a1a;
+  color: #1f7ba6;
 }
 
 .button {
@@ -89,7 +89,7 @@
 }
 
 .button:hover {
-  background: #b90500;
+  background: #1f7ba6;
 }
 
 .error {

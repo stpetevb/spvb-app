@@ -103,7 +103,7 @@
 
 .navLinks a:hover {
   color: var(--color-accent);
-  background: rgba(225, 6, 0, 0.05);
+  background: rgba(40, 154, 205, 0.05);
 }
 
 .navLinks a:hover::after {
@@ -163,8 +163,8 @@
 }
 
 .legalLinks a:hover {
-  color: var(--color-accent, #E10600);
-  background: rgba(225, 6, 0, 0.05);
+  color: var(--color-accent, #289ACD);
+  background: rgba(40, 154, 205, 0.05);
   transform: translateY(-1px);
 }
 
@@ -181,8 +181,8 @@
 }
 
 .signOutBtn:hover {
-  background: var(--color-accent, #c00);
+  background: var(--color-accent, #289ACD);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(225, 6, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(40, 154, 205, 0.2);
 }
