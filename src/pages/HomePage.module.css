@@ -98,9 +98,9 @@
   }
 }
 
-/* Red color for "Volleyball" only */
+/* Blue color for "Volleyball" only */
 .redText {
-  color: #dc2626;
+  color: #289ACD;
 }
 
 .header p {
@@ -140,6 +140,7 @@
   margin-bottom: 0.5rem;
   border-radius: 8px;
   border: 1px solid #f0f0f0;
+  border-left: 4px solid transparent;
   transition: all 0.3s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
@@ -148,10 +149,21 @@
   transform: translateX(4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-color: #e0e0e0;
+  border-left-color: #289ACD;
 }
 
 .tournamentInfo {
   flex: 1;
+}
+
+.tournamentInfo a {
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.tournamentInfo a:hover {
+  color: #289ACD;
 }
 
 .actions {
@@ -219,7 +231,7 @@
   border: none;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--color-black);
+  color: #000000;
   cursor: pointer;
   padding: 10px 24px;
   border-bottom: 3px solid transparent;
@@ -240,7 +252,7 @@
 }
 
 .tab:hover {
-  color: var(--color-accent);
+  color: #000000;
 }
 
 .tab:hover::after {
@@ -248,7 +260,7 @@
 }
 
 .activeTab {
-  color: var(--color-accent);
+  color: #000000;
 }
 
 .activeTab::after {
