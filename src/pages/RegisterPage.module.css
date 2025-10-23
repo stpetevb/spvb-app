@@ -73,7 +73,7 @@
 
 .waiverLink:hover {
   text-decoration: underline;
-  color: #8b1a1a;
+  color: #c74a15;
 }
 
 .button {
@@ -89,7 +89,7 @@
 }
 
 .button:hover {
-  background: #b90500;
+  background: #c74a15;
 }
 
 .error {

@@ -70,9 +70,9 @@
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Red color for "Volleyball" only */
+/* Orange color for "Volleyball" only */
 .redText {
-  color: #dc2626;
+  color: #E85C20;
 }
 
 .header p {
@@ -123,7 +123,7 @@
 }
 
 .registerBtn {
-  background: #219ebc;
+  background: #5EC6E8;
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
@@ -133,7 +133,7 @@
 }
 
 .registerBtn:hover {
-  background: #1a8ca8;
+  background: #4ab3d5;
   color: white;
   text-decoration: none;
 }

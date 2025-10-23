@@ -20,7 +20,7 @@
 .title {
   font-size: 1.8rem;
   margin: 0;
-  color: #b22222; /* your red brand color */
+  color: #E85C20; /* orange brand color */
   letter-spacing: 1px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .content h3 {
-  color: #b22222;
+  color: #E85C20;
   margin-top: 30px;
   margin-bottom: 10px;
   font-size: 1.1rem;

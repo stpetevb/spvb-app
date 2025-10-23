@@ -52,7 +52,7 @@
 }
 
 .resetBtn {
-  background: #e63946;
+  background: #E85C20;
   color: #fff;
   border: none;
   padding: 6px 12px;
@@ -156,7 +156,7 @@ input {
 .saveBtn {
   margin-top: 8px;
   width: 100%;
-  background: #219ebc;
+  background: #5EC6E8;
   color: white;
   border: none;
   padding: 6px 10px;
@@ -166,7 +166,7 @@ input {
 }
 
 .saveBtn:hover {
-  background: #197793;
+  background: #4ab3d5;
 }
 
 .locked {

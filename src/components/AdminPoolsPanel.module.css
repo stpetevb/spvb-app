@@ -147,7 +147,7 @@
 }
 
 .generator button:hover {
-  background: #b90500;
+  background: #c74a15;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
   transform: translateY(-2px);
 }
@@ -158,11 +158,11 @@
 }
 
 .resetButton {
-  background: #e63946 !important;
+  background: #E85C20 !important;
 }
 
 .resetButton:hover {
-  background: #c92a35 !important;
+  background: #c74a15 !important;
 }
 
 /* Pools Section */
