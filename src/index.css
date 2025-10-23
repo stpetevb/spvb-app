@@ -30,8 +30,10 @@ body {
   font-weight: 400;
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.5;
+  line-height: 1.6;
   overflow-x: hidden; /* Prevent horizontal scrolling */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Ensure root container doesn't overflow */
@@ -46,6 +48,23 @@ h1, h2, h3, h4 {
   color: var(--color-black);
   margin-top: 0;
   font-weight: 300; /* Thinner font weight for all headings */
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
 }
 
 /* Global content links */
@@ -65,4 +84,37 @@ a:hover {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 16px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Improved button reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Smooth transitions for interactive elements */
+a, button, input, select, textarea {
+  transition: all 0.3s ease;
 }

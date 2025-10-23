@@ -49,11 +49,25 @@
   margin-bottom: 1.5rem;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7)) 
           drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  animation: fadeInDown 0.8s ease-out;
 }
 
 .logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.08) rotate(2deg);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.8)) 
+          drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .header h1 {
@@ -68,6 +82,20 @@
   
   /* Very subtle shadow */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  
+  /* Smooth entrance animation */
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Red color for "Volleyball" only */
@@ -85,6 +113,9 @@
   
   /* Very subtle shadow */
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  
+  /* Smooth entrance animation */
+  animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
 /* Content section below banner */
@@ -103,8 +134,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0;
+  padding: 1rem 1.25rem;
   border-bottom: 1px solid #eee;
+  background: white;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.tournamentRow:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #e0e0e0;
 }
 
 .tournamentInfo {
@@ -123,19 +166,40 @@
 }
 
 .registerBtn {
-  background: #219ebc;
+  background: linear-gradient(135deg, #219ebc 0%, #1a8ca8 100%);
   color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 8px 20px;
+  border-radius: 8px;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: background 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(33, 158, 188, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.registerBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.registerBtn:hover::before {
+  left: 100%;
 }
 
 .registerBtn:hover {
-  background: #1a8ca8;
+  background: linear-gradient(135deg, #1a8ca8 0%, #197793 100%);
   color: white;
   text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 158, 188, 0.4);
 }
 
 .closed {
@@ -157,26 +221,59 @@
   font-weight: 600;
   color: var(--color-black);
   cursor: pointer;
-  padding: 8px 16px;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.2s, color 0.2s;
+  padding: 10px 24px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: var(--color-accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 
 .tab:hover {
   color: var(--color-accent);
 }
 
+.tab:hover::after {
+  width: 100%;
+}
+
 .activeTab {
-  border-color: var(--color-accent);
   color: var(--color-accent);
 }
 
+.activeTab::after {
+  width: 100%;
+}
+
 .activeLabel {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent) 0%, #b50500 100%);
   color: var(--color-white);
   font-size: 0.75rem;
   font-weight: bold;
   margin-left: 8px;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(225, 6, 0, 0.3);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 2px 6px rgba(225, 6, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 3px 10px rgba(225, 6, 0, 0.5);
+  }
 }
