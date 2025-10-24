@@ -7,14 +7,14 @@ export default function TermsOfService() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <img src={logo} alt="St. Pete Volleyball Logo" className={styles.logo} />
-        <h1 className={styles.title}>St. Pete Volleyball</h1>
+        <img src={logo} alt="Twin Flag Volleyball Logo" className={styles.logo} />
+        <h1 className={styles.title}>Twin Flag Volleyball</h1>
         <h2 className={styles.subtitle}>Terms of Service</h2>
       </div>
 
       <div className={styles.content}>
         <p>
-          Welcome to St. Pete Volleyball! These Terms of Service ("Terms") govern your use
+          Welcome to Twin Flag Volleyball! These Terms of Service ("Terms") govern your use
           of our website and services. By accessing or using our website, registering for
           tournaments, or participating in our events, you agree to be bound by these Terms.
           If you do not agree, please do not use our services.
@@ -22,11 +22,11 @@ export default function TermsOfService() {
 
         <h3>1. Acceptance of Terms</h3>
         <p>
-          By using stpetevb.com (the "Website") or participating in St. Pete Volleyball
+          By using stpetevb.com (the "Website") or participating in Twin Flag Volleyball
           events, you agree to these Terms of Service, our{" "}
           <Link to="/privacy" className={styles.inlineLink}>Privacy Policy</Link>, and our{" "}
           <Link to="/waiver" className={styles.inlineLink}>Participant Agreement & Release</Link>.
-          These documents together constitute the entire agreement between you and St. Pete Volleyball.
+          These documents together constitute the entire agreement between you and Twin Flag Volleyball.
         </p>
 
         <h3>2. Eligibility</h3>
@@ -39,7 +39,7 @@ export default function TermsOfService() {
         <h3>3. User Accounts</h3>
         <p>
           Currently, tournament registration does not require creating an account. Admin accounts
-          are created by St. Pete Volleyball staff only. If you are granted admin access:
+          are created by Twin Flag Volleyball staff only. If you are granted admin access:
         </p>
         <ul>
           <li>You are responsible for maintaining the confidentiality of your login credentials</li>

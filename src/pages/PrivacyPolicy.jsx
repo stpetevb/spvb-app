@@ -6,14 +6,14 @@ export default function PrivacyPolicy() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <img src={logo} alt="St. Pete Volleyball Logo" className={styles.logo} />
-        <h1 className={styles.title}>St. Pete Volleyball</h1>
+        <img src={logo} alt="Twin Flag Volleyball Logo" className={styles.logo} />
+        <h1 className={styles.title}>Twin Flag Volleyball</h1>
         <h2 className={styles.subtitle}>Privacy Policy</h2>
       </div>
 
       <div className={styles.content}>
         <p>
-          At St. Pete Volleyball, we respect your privacy and are committed to protecting
+          At Twin Flag Volleyball, we respect your privacy and are committed to protecting
           your personal information. This Privacy Policy explains what information we collect,
           how we use it, and your rights regarding your data.
         </p>

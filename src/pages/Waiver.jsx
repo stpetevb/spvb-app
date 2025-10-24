@@ -6,14 +6,14 @@ export default function Waiver() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <img src={logo} alt="St. Pete Volleyball Logo" className={styles.logo} />
-        <h1 className={styles.title}>St. Pete Volleyball</h1>
+        <img src={logo} alt="Twin Flag Volleyball Logo" className={styles.logo} />
+        <h1 className={styles.title}>Twin Flag Volleyball</h1>
         <h2 className={styles.subtitle}>Participant Agreement & Release</h2>
       </div>
 
       <div className={styles.content}>
         <p>
-          At St. Pete Volleyball, our goal is to create a fun, safe, and
+          At Twin Flag Volleyball, our goal is to create a fun, safe, and
           inclusive environment where everyone can play, connect, and compete.
           By registering for any tournament or event, you’re agreeing to the
           following terms so we can all enjoy the game responsibly and
@@ -25,7 +25,7 @@ export default function Waiver() {
           Volleyball is a physical sport, and as with any athletic activity,
           injuries can happen. By joining, you understand and accept the normal
           risks that come with playing—such as bumps, sprains, strains, or
-          other physical injuries—and agree that St. Pete Volleyball, its
+          other physical injuries—and agree that Twin Flag Volleyball, its
           organizers, staff, volunteers, and partners can’t be held responsible
           for any injury, loss, or damage that may occur while participating,
           watching, or attending our events.
@@ -44,7 +44,7 @@ export default function Waiver() {
         <h3>3. Photo, Video & Media Use</h3>
         <p>
           We love capturing the moments that make our tournaments special. By
-          registering, you give St. Pete Volleyball permission to take and share
+          registering, you give Twin Flag Volleyball permission to take and share
           photos or videos of you during events on our website, social media,
           and promotional materials.
         </p>
@@ -91,11 +91,11 @@ export default function Waiver() {
 
         <h3>8. Acknowledgment</h3>
         <p>
-          By registering or participating in a St. Pete Volleyball event, you
+          By registering or participating in a Twin Flag Volleyball event, you
           confirm that you’ve read and agree to this Participant Agreement &
           Release, and that you understand participation is voluntary and at
-          your own risk. This agreement applies to all current and future St.
-          Pete Volleyball tournaments, leagues, or events you participate in.
+          your own risk. This agreement applies to all current and future Twin Flag
+          Volleyball tournaments, leagues, or events you participate in.
         </p>
 
         <p className={styles.note}>
@@ -109,7 +109,7 @@ export default function Waiver() {
           Effective Date: {new Date().toLocaleDateString()}
         </p>
         <p>
-          St. Pete Volleyball © {new Date().getFullYear()} — All Rights
+          Twin Flag Volleyball © {new Date().getFullYear()} — All Rights
           Reserved.
         </p>
       </div>

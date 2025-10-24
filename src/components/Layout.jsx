@@ -69,9 +69,9 @@ export default function Layout() {
       {/* Header / Navbar */}
       <header className={styles.header}>
         <div className={styles.brand}>
-          <img src={logo} alt="SPVB Logo" className={styles.logoImg} />
+          <img src={logo} alt="Twin Flag Volleyball Logo" className={styles.logoImg} />
           <h1 className={styles.logo}>
-            <Link to="/">ST. PETE VOLLEYBALL</Link>
+            <Link to="/">TWIN FLAG VOLLEYBALL</Link>
           </h1>
         </div>
         <nav>
@@ -96,7 +96,7 @@ export default function Layout() {
       {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p>&copy; {new Date().getFullYear()} St. Pete Volleyball</p>
+          <p>&copy; {new Date().getFullYear()} Twin Flag Volleyball</p>
           <div className={styles.legalLinks}>
             <Link to="/privacy">Privacy Policy</Link>
             <span>•</span>
