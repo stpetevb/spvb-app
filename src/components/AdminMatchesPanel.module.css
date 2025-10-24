@@ -80,7 +80,7 @@
 .scoreInput:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(40, 154, 205, 0.1);
+  box-shadow: 0 0 0 3px rgba(194, 57, 12, 0.1);
 }
 
 /* Action Buttons */
@@ -165,7 +165,7 @@
 }
 
 .addButton:hover {
-  background: #1f7ba6;
+  background: #a02f0a;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
   transform: translateY(-2px);
 }
@@ -216,7 +216,7 @@
 .select:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(40, 154, 205, 0.1);
+  box-shadow: 0 0 0 3px rgba(194, 57, 12, 0.1);
 }
 
 .select {

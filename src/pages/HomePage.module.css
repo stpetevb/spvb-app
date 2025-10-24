@@ -98,9 +98,9 @@
   }
 }
 
-/* Blue color for "Volleyball" only */
+/* Orange color for "Volleyball" only */
 .redText {
-  color: #289ACD;
+  color: #C2390C;
 }
 
 .header p {
@@ -149,7 +149,7 @@
   transform: translateX(4px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border-color: #e0e0e0;
-  border-left-color: #289ACD;
+  border-left-color: #C2390C;
 }
 
 .tournamentInfo {
@@ -163,7 +163,7 @@
 }
 
 .tournamentInfo a:hover {
-  color: #289ACD;
+  color: #C2390C;
 }
 
 .actions {
@@ -178,7 +178,7 @@
 }
 
 .registerBtn {
-  background: #C2390C;
+  background: #289ACD;
   color: white;
   padding: 8px 20px;
   border-radius: 8px;
@@ -186,7 +186,7 @@
   font-size: 0.9rem;
   font-weight: 600;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(194, 57, 12, 0.3);
+  box-shadow: 0 2px 8px rgba(40, 154, 205, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -207,11 +207,11 @@
 }
 
 .registerBtn:hover {
-  background: #a02f0a;
+  background: #1f7ba6;
   color: white;
   text-decoration: none;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(194, 57, 12, 0.4);
+  box-shadow: 0 4px 12px rgba(40, 154, 205, 0.4);
 }
 
 .closed {
@@ -275,17 +275,17 @@
   margin-left: 8px;
   padding: 3px 8px;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(40, 154, 205, 0.3);
+  box-shadow: 0 2px 6px rgba(194, 57, 12, 0.3);
   animation: pulse 2s ease-in-out infinite;
 }
 
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 2px 6px rgba(40, 154, 205, 0.3);
+    box-shadow: 0 2px 6px rgba(194, 57, 12, 0.3);
   }
   50% {
     transform: scale(1.05);
-    box-shadow: 0 3px 10px rgba(40, 154, 205, 0.5);
+    box-shadow: 0 3px 10px rgba(194, 57, 12, 0.5);
   }
 }

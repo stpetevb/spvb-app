@@ -30,7 +30,7 @@
 }
 
 button {
-  background: #C2390C;
+  background: #289ACD;
   color: white;
   border: none;
   padding: 6px 10px;
@@ -40,5 +40,5 @@ button {
 }
 
 button:hover {
-  background: #a02f0a;
+  background: #1f7ba6;
 }

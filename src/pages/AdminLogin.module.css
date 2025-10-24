@@ -41,7 +41,7 @@
 .input:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(40, 154, 205, 0.2);
+  box-shadow: 0 0 0 2px rgba(194, 57, 12, 0.2);
 }
 
 .button {
@@ -57,7 +57,7 @@
 }
 
 .button:hover {
-  background: #1f7ba6;
+  background: #a02f0a;
 }
 
 .button:disabled {
