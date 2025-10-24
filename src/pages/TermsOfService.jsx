@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./LegalPage.module.css";
-import logo from "../assets/spvb_logo_transparent.png";
+import logo from "../assets/tfv_logo.png";
 
 export default function TermsOfService() {
   return (

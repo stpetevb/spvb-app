@@ -4,7 +4,7 @@ import { db } from "../services/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import styles from "./HomePage.module.css";
 import { useAuth } from "../context/AuthContext";
-import logo from "../assets/spvb_logo_transparent.png"; // NEW import
+import logo from "../assets/tfv_logo.png"; // NEW import
 
 export default function HomePage() {
   const [tournaments, setTournaments] = useState([]);

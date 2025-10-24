@@ -4,7 +4,7 @@ import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../services/firebase";
 import { signOut } from "firebase/auth";
 import styles from "./Layout.module.css";
-import logo from "../assets/spvb_logo_transparent.png"; // Logo in header
+import logo from "../assets/tfv_logo.png"; // Logo in header
 import LoadingOverlay from "./LoadingOverlay"; // NEW import
 
 export default function Layout() {

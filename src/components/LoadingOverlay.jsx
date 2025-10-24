@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./LoadingOverlay.module.css";
-import logo from "../assets/spvb_logo_transparent.png"; // adjust if filename differs
+import logo from "../assets/tfv_logo.png"; // adjust if filename differs
 
 export default function LoadingOverlay({ loading }) {
   if (!loading) return null;

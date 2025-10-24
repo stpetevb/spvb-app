@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./LegalPage.module.css";
-import logo from "../assets/spvb_logo_transparent.png";
+import logo from "../assets/tfv_logo.png";
 
 export default function Waiver() {
   return (
