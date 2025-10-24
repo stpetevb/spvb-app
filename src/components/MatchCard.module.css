@@ -151,7 +151,7 @@
 
 .scoreButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(194, 57, 12, 0.3);
+  box-shadow: 0 4px 8px rgba(40, 154, 205, 0.3);
 }
 
 .saveButton {
