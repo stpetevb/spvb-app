@@ -181,8 +181,9 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
       let sequence = 1;
 
       // Iterate through pools in order, then matches within each pool
-      Object.keys(matchesByPool).forEach((poolName) => {
-        matchesByPool[poolName].forEach((match) => {
+      pools.forEach((pool) => {
+        const poolMatches = matchesByPool[pool.name] || [];
+        poolMatches.forEach((match) => {
           const matchDoc = doc(
             db,
             "tournaments",
@@ -204,8 +205,9 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
       setMatches((prev) => {
         let seq = 1;
         const updated = [...prev];
-        Object.keys(matchesByPool).forEach((poolName) => {
-          matchesByPool[poolName].forEach((match) => {
+        pools.forEach((pool) => {
+          const poolMatches = matchesByPool[pool.name] || [];
+          poolMatches.forEach((match) => {
             const idx = updated.findIndex((m) => m.id === match.id);
             if (idx !== -1) {
               updated[idx] = { ...updated[idx], sequence: seq };
