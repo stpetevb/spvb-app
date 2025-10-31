@@ -79,9 +79,5 @@ export function generatePoolMatches(teams) {
     }
   }
 
-  // ✅ Add sequence number to each match
-  return matches.map((match, index) => ({
-    ...match,
-    sequence: index + 1,
-  }));
+  return matches;
 }

@@ -11,89 +11,15 @@ import {
 } from "firebase/firestore";
 import { db } from "../services/firebase";
 import styles from "./AdminMatchesPanel.module.css";
-import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-
-// ✅ Sortable Match Item Component
-function SortableMatchItem({ match, displayTeam, onEdit, onDelete, poolName }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: match.id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-    opacity: isDragging ? 0.5 : 1,
-  };
-
-  return (
-    <li
-      ref={setNodeRef}
-      style={style}
-      className={styles.matchItem}
-      {...attributes}
-      {...listeners}
-    >
-      <div className={styles.matchRow}>
-        <span className={styles.dragHandle}>⋮⋮</span>
-        <span className={styles.matchNumber}>Match {match.sequence}</span>
-        <span className={styles.matchInfo}>
-          <strong>{displayTeam(match, "teamA")}</strong>{" "}
-          {match.scoreA ?? "-"} - {match.scoreB ?? "-"}{" "}
-          <strong>{displayTeam(match, "teamB")}</strong>
-          {match.adminLocked && " (Locked)"}
-        </span>
-        <div className={styles.actions}>
-          <button
-            className={styles.editButton}
-            onClick={() => onEdit(match)}
-          >
-            Edit
-          </button>
-          <button
-            className={styles.deleteButton}
-            onClick={() => onDelete(match.id)}
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-    </li>
-  );
-}
 
 export default function AdminMatchesPanel({ tournamentId, divisionId }) {
   const [matches, setMatches] = useState([]);
   const [pools, setPools] = useState([]);
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [reorderMode, setReorderMode] = useState(false);
-  const [hasChanges, setHasChanges] = useState(false);
-  const [localMatches, setLocalMatches] = useState([]);
 
   const [editingMatch, setEditingMatch] = useState(null);
   const [newMatch, setNewMatch] = useState({ pool: "", teamA: "", teamB: "" });
-
-  // ✅ Setup drag and drop sensors
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
 
   // Fetch pools, matches, registrations
   useEffect(() => {
@@ -204,55 +130,6 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
     }
   };
 
-  // ✅ Handle reorder drag end
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-
-    if (over && active.id !== over.id) {
-      setLocalMatches((items) => {
-        const oldIndex = items.findIndex((m) => m.id === active.id);
-        const newIndex = items.findIndex((m) => m.id === over.id);
-        const newOrder = arrayMove(items, oldIndex, newIndex);
-        
-        // Update sequence numbers after reordering
-        return newOrder.map((m, idx) => ({
-          ...m,
-          sequence: idx + 1,
-        }));
-      });
-      setHasChanges(true);
-    }
-  };
-
-  // ✅ Save reordered matches to Firebase
-  const handleSaveReorder = async () => {
-    try {
-      const batch = writeBatch(db);
-      const matchesRef = collection(
-        db,
-        "tournaments",
-        tournamentId,
-        "divisions",
-        divisionId,
-        "matches"
-      );
-
-      localMatches.forEach((match) => {
-        const docRef = doc(matchesRef, match.id);
-        batch.update(docRef, { sequence: match.sequence });
-      });
-
-      await batch.commit();
-      setMatches(localMatches);
-      setReorderMode(false);
-      setHasChanges(false);
-      alert("Match order saved successfully!");
-    } catch (err) {
-      console.error("❌ Error saving match order:", err);
-      alert("Error saving match order");
-    }
-  };
-
   // Add custom match
   const handleAdd = async () => {
     if (!newMatch.pool || !newMatch.teamA || !newMatch.teamB) {
@@ -264,12 +141,6 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
     const teamBData = registrations.find((r) => r.teamName === newMatch.teamB);
 
     try {
-      // ✅ Get max sequence for this pool
-      const poolMatches = matches.filter((m) => m.pool === newMatch.pool);
-      const maxSequence = poolMatches.length > 0 
-        ? Math.max(...poolMatches.map((m) => m.sequence || 0)) 
-        : 0;
-
       const newMatchDoc = {
         pool: newMatch.pool,
         teamA: teamAData?.teamName || newMatch.teamA,
@@ -282,7 +153,6 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
         playerScoreB: null,
         adminLocked: false,
         status: "pending",
-        sequence: maxSequence + 1,
       };
 
       const newDocRef = await addDoc(
@@ -304,14 +174,58 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
     }
   };
 
-  if (loading) return <p>Loading matches...</p>;
+  // Save match order based on current display order
+  const handleSaveOrder = async () => {
+    try {
+      const batch = writeBatch(db);
+      let sequence = 1;
 
-  // ✅ Sort matches by sequence
-  const sortedMatches = [...matches].sort((a, b) => (a.sequence || 0) - (b.sequence || 0));
+      // Iterate through pools in order, then matches within each pool
+      Object.keys(matchesByPool).forEach((poolName) => {
+        matchesByPool[poolName].forEach((match) => {
+          const matchDoc = doc(
+            db,
+            "tournaments",
+            tournamentId,
+            "divisions",
+            divisionId,
+            "matches",
+            match.id
+          );
+          batch.update(matchDoc, { sequence });
+          sequence++;
+        });
+      });
+
+      await batch.commit();
+      alert("✓ Match order saved!");
+
+      // Update local state to reflect sequence changes
+      setMatches((prev) => {
+        let seq = 1;
+        const updated = [...prev];
+        Object.keys(matchesByPool).forEach((poolName) => {
+          matchesByPool[poolName].forEach((match) => {
+            const idx = updated.findIndex((m) => m.id === match.id);
+            if (idx !== -1) {
+              updated[idx] = { ...updated[idx], sequence: seq };
+              seq++;
+            }
+          });
+        });
+        return updated;
+      });
+    } catch (err) {
+      console.error("❌ Error saving match order:", err);
+      alert("Failed to save match order");
+    }
+  };
+
+  if (loading) return <p>Loading matches...</p>;
 
   // Group matches by pool
   const matchesByPool = pools.reduce((acc, pool) => {
-    acc[pool.name] = sortedMatches.filter((m) => m.pool === pool.name);
+    acc[pool.name] = matches.filter((m) => m.pool === pool.name);
     return acc;
   }, {});
 
@@ -321,140 +235,64 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
     return players?.length ? players.join(" / ") : match[side];
   };
 
-  // ✅ Prepare local matches for reorder mode
-  const handleEnterReorderMode = () => {
-    const flatMatches = Object.values(matchesByPool).flat();
-    setLocalMatches(flatMatches);
-    setReorderMode(true);
-    setHasChanges(false);
-  };
-
   return (
     <div className={styles.panel}>
       <h2>Manage Matches</h2>
+      <button onClick={handleSaveOrder} className={styles.saveOrderButton}>
+        💾 Save Match Order (Top to Bottom)
+      </button>
 
-      {/* ✅ Reorder Control Buttons */}
-      <div className={styles.controlBar}>
-        {!reorderMode ? (
-          <button className={styles.reorderButton} onClick={handleEnterReorderMode}>
-            🔄 Reorder Matches
-          </button>
-        ) : (
-          <>
-            <button className={styles.saveButton} onClick={handleSaveReorder} disabled={!hasChanges}>
-              ✓ Save Order
-            </button>
-            <button
-              className={styles.cancelButton}
-              onClick={() => {
-                setReorderMode(false);
-                setLocalMatches([]);
-                setHasChanges(false);
-              }}
-            >
-              ✕ Cancel
-            </button>
-          </>
-        )}
-      </div>
-
-      {reorderMode ? (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          {Object.keys(matchesByPool).map((poolName) => (
-            <div key={poolName} className={styles.poolCard}>
-              <h3>{poolName}</h3>
-              <SortableContext
-                items={localMatches.filter((m) => m.pool === poolName).map((m) => m.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                <ul className={styles.matchList}>
-                  {localMatches
-                    .filter((m) => m.pool === poolName)
-                    .map((match) => (
-                      <SortableMatchItem
-                        key={match.id}
-                        match={match}
-                        displayTeam={displayTeam}
-                        onEdit={() => {}}
-                        onDelete={() => {}}
-                        poolName={poolName}
-                      />
-                    ))}
-                </ul>
-              </SortableContext>
-            </div>
-          ))}
-        </DndContext>
-      ) : (
-        <>
-          {Object.keys(matchesByPool).map((poolName) => (
-            <div key={poolName} className={styles.poolCard}>
-              <h3>{poolName}</h3>
-              <ul className={styles.matchList}>
-                {matchesByPool[poolName].map((match) => (
-                  <li key={match.id} className={styles.matchItem}>
-                    {editingMatch?.id === match.id ? (
-                      <div className={styles.editRow}>
-                        <strong>{displayTeam(match, "teamA")}</strong>
-                        <input
-                          type="number"
-                          className={styles.scoreInput}
-                          value={editingMatch.scoreA ?? ""}
-                          onChange={(e) =>
-                            setEditingMatch((prev) => ({
-                              ...prev,
-                              scoreA: e.target.value === "" ? null : parseInt(e.target.value, 10),
-                            }))
-                          }
-                        />
-                        vs
-                        <input
-                          type="number"
-                          className={styles.scoreInput}
-                          value={editingMatch.scoreB ?? ""}
-                          onChange={(e) =>
-                            setEditingMatch((prev) => ({
-                              ...prev,
-                              scoreB: e.target.value === "" ? null : parseInt(e.target.value, 10),
-                            }))
-                          }
-                        />
-                        <strong>{displayTeam(match, "teamB")}</strong>
-                        <div className={styles.actions}>
-                          <button className={styles.saveButton} onClick={handleSave}>
-                            Save
-                          </button>
-                          <button className={styles.cancelButton} onClick={() => setEditingMatch(null)}>
-                            Cancel
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className={styles.matchRow}>
-                        <span className={styles.matchNumber}>Match {match.sequence}</span>
-                        <span className={styles.matchInfo}>
-                          <strong>{displayTeam(match, "teamA")}</strong>{" "}
-                          {match.scoreA ?? "-"} - {match.scoreB ?? "-"}{" "}
-                          <strong>{displayTeam(match, "teamB")}</strong>
-                          {match.adminLocked && " (Locked)"}
-                        </span>
-                        <div className={styles.actions}>
-                          <button className={styles.editButton} onClick={() => setEditingMatch(match)}>
-                            Edit
-                          </button>
-                          <button className={styles.deleteButton} onClick={() => handleDelete(match.id)}>
-                            Delete
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </>
-      )}
+      {Object.keys(matchesByPool).map((poolName) => (
+        <div key={poolName} className={styles.poolCard}>
+          <h3>{poolName}</h3>
+          <ul>
+            {matchesByPool[poolName].map((match) => (
+              <li key={match.id}>
+                {editingMatch?.id === match.id ? (
+                  <>
+                    <strong>{displayTeam(match, "teamA")}</strong>
+                    <input
+                      type="number"
+                      value={editingMatch.scoreA ?? ""}
+                      onChange={(e) =>
+                        setEditingMatch((prev) => ({
+                          ...prev,
+                          scoreA: e.target.value === "" ? null : parseInt(e.target.value, 10),
+                        }))
+                      }
+                    />
+                    vs
+                    <input
+                      type="number"
+                      value={editingMatch.scoreB ?? ""}
+                      onChange={(e) =>
+                        setEditingMatch((prev) => ({
+                          ...prev,
+                          scoreB: e.target.value === "" ? null : parseInt(e.target.value, 10),
+                        }))
+                      }
+                    />
+                    <strong>{displayTeam(match, "teamB")}</strong>
+                    <button onClick={handleSave}>Save</button>
+                    <button onClick={() => setEditingMatch(null)}>Cancel</button>
+                  </>
+                ) : (
+                  <>
+                    <span>
+                      <strong>{displayTeam(match, "teamA")}</strong>{" "}
+                      {match.scoreA ?? "-"} - {match.scoreB ?? "-"}{" "}
+                      <strong>{displayTeam(match, "teamB")}</strong>
+                      {match.adminLocked && " (Locked)"}
+                    </span>
+                    <button onClick={() => setEditingMatch(match)}>Edit</button>
+                    <button onClick={() => handleDelete(match.id)}>Delete</button>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
 
       <div>
         <h3>Add Match</h3>
