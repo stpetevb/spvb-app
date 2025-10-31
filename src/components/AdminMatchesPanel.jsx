@@ -130,6 +130,12 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
     }
   };
 
+  // Group matches by pool for display and ordering
+  const matchesByPool = pools.reduce((acc, pool) => {
+    acc[pool.name] = matches.filter((m) => m.pool === pool.name);
+    return acc;
+  }, {});
+
   // Add custom match
   const handleAdd = async () => {
     if (!newMatch.pool || !newMatch.teamA || !newMatch.teamB) {
@@ -224,12 +230,6 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
   };
 
   if (loading) return <p>Loading matches...</p>;
-
-  // Group matches by pool
-  const matchesByPool = pools.reduce((acc, pool) => {
-    acc[pool.name] = matches.filter((m) => m.pool === pool.name);
-    return acc;
-  }, {});
 
   // Display helper
   const displayTeam = (match, side) => {
