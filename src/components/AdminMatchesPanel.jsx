@@ -132,7 +132,9 @@ export default function AdminMatchesPanel({ tournamentId, divisionId }) {
 
   // Group matches by pool for display and ordering
   const matchesByPool = pools.reduce((acc, pool) => {
-    acc[pool.name] = matches.filter((m) => m.pool === pool.name);
+    acc[pool.name] = matches
+      .filter((m) => m.pool === pool.name)
+      .sort((a, b) => (a.sequence ?? Infinity) - (b.sequence ?? Infinity)); // Sort by sequence, unsaved matches go to end
     return acc;
   }, {});
 
