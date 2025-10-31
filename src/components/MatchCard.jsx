@@ -3,6 +3,10 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 import styles from "./MatchCard.module.css";
 
+// 🎛️ Feature flag: Toggle player score editing
+// Set to false to hide "Enter Score" button from players (read-only mode)
+const ALLOW_PLAYER_SCORING = false;
+
 export default function MatchCard({
   match,
   index,
@@ -95,7 +99,7 @@ export default function MatchCard({
   const teamAData = resolveTeamData(teamAKey);
   const teamBData = resolveTeamData(teamBKey);
 
-  const canPlayerEdit = !match.adminLocked && isTournamentToday;
+  const canPlayerEdit = ALLOW_PLAYER_SCORING && !match.adminLocked && isTournamentToday;
   const canAdminEdit = isAdmin;
 
   return (
